@@ -18,9 +18,6 @@ class Assembler:
             self.log_file = ET.ElementTree(ET.Element("logs"))
             self.xml = ET.SubElement(self.log_file.getroot(),
                                      "log_info_" + datetime.now().isoformat(timespec='minutes').replace(':', '.'))
-        except Exception as e:
-            print(e)
-            exit(1)
 
 
     def load_constant(self, B):
@@ -152,8 +149,11 @@ class Assembler:
 if __name__ == "__main__": # Для тестирования
     path_to_code = "files/code.asm"
     path_to_binary_file = "files/binary_data.bin"
-    path_to_log = "files/logggs.txt"
+    path_to_log = "files/log.xml"
 
     assembler = Assembler(path_to_code, path_to_binary_file, path_to_log)
-    assembler.assemble()
+    try:
+        assembler.assemble()
+    except ValueError as e:
+        print(e)
     assembler.to_binary_file()
