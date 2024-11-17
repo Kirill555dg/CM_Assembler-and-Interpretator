@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 
-class Assemble:
+class Assembler:
     def __init__(self, path_to_code, path_to_binary_file, path_to_log):
         self.binary_file_path = path_to_binary_file
         self.code_path = path_to_code
@@ -18,7 +18,9 @@ class Assemble:
             self.log_file = ET.ElementTree(ET.Element("logs"))
             self.xml = ET.SubElement(self.log_file.getroot(),
                                      "log_info_" + datetime.now().isoformat(timespec='minutes').replace(':', '.'))
-
+        except Exception as e:
+            print(e)
+            exit(1)
 
 
     def load_constant(self, B):
@@ -150,8 +152,8 @@ class Assemble:
 if __name__ == "__main__": # Для тестирования
     path_to_code = "files/code.asm"
     path_to_binary_file = "files/binary_data.bin"
-    path_to_log = "files/log.xml"
+    path_to_log = "files/logggs.txt"
 
-    assembler = Assemble(path_to_code, path_to_binary_file, path_to_log)
+    assembler = Assembler(path_to_code, path_to_binary_file, path_to_log)
     assembler.assemble()
     assembler.to_binary_file()
