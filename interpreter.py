@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 class Interpreter:
 
-    def __init__(self, path_to_binary_file, left_boundary, right_boundary, path_to_result_file="files/result.xml"):
+    def __init__(self, path_to_binary_file, left_boundary, right_boundary, path_to_result_file):
         self.result_path = path_to_result_file
         self.boundaries = (left_boundary, right_boundary)
         self.registers = [0] * (right_boundary - left_boundary + 1)
