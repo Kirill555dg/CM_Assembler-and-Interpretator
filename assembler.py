@@ -79,68 +79,68 @@ class Assembler:
                 match command:
                     case "LOAD_CONSTANT":
                         if len(args) != 1:
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\nУ операции загрузки константы должен быть 1 аргумент: значение константы")
 
                         constant = args[0]
                         if constant[0] != "#":
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\n{args[0]}: константа должна быть записана в формате \"#значение\"")
 
                         constant = constant[1:]
 
                         if not constant:
-                            raise ValueError(f"{line}\n{args[0]}: пропущено значение константы")
+                            raise SyntaxError(f"{line}\n{args[0]}: пропущено значение константы")
 
                         self.bytes.append(self.load_constant(int(constant)))
 
                     case "READ_MEMORY":
                         if len(args) != 1:
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\nУ операции чтении из памяти должен быть 1 аргумент: адрес ячейки памяти")
 
                         address = args[0]
                         if address[0] != "R":
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\n{args[0]}: адрес ячейки памяти должен записываться в формате \"Rномер\"")
 
                         address = address[1:]
 
                         if not address:
-                            raise ValueError(f"{line}\n{args[0]}: пропущен номер адреса ячейки памяти")
+                            raise SyntaxError(f"{line}\n{args[0]}: пропущен номер адреса ячейки памяти")
 
                         self.bytes.append(self.read_memory(int(address)))
 
                     case "WRITE_MEMORY":
                         if len(args) != 1:
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\nУ операции чтении из памяти должен быть 1 аргумент: адрес ячейки памяти")
 
                         address = args[0]
                         if address[0] != "R":
-                            raise ValueError(
+                            raise SyntaxError(
                                 f"{line}\n{args[0]}: адрес ячейки памяти должен записываться в формате \"Rномер\"")
 
                         address = address[1:]
 
                         if not address:
-                            raise ValueError(f"{line}\n{args[0]}: пропущен номер адреса ячейки памяти")
+                            raise SyntaxError(f"{line}\n{args[0]}: пропущен номер адреса ячейки памяти")
 
                         self.bytes.append(self.write_memory(int(address)))
 
                     case "BITWISE_NOT":
                         if args:
-                            raise ValueError(f"{line}\nУ операции побитового \"не\" не должно быть аргументов")
+                            raise SyntaxError(f"{line}\nУ операции побитового \"не\" не должно быть аргументов")
 
                         self.bytes.append(self.bitwise_not())
 
                     case _:
-                        raise ValueError(f"{line}\nНеизвестная команда")
+                        raise SyntaxError(f"{line}\nНеизвестная команда")
 
         self.log_file.write(self.log_path)
+        self.to_binary_file()
 
     def to_binary_file(self):
-
         with open(self.binary_file_path, "wb") as binary:
             for byte in self.bytes:
                 binary.write(byte)
