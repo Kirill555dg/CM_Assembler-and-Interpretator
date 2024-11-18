@@ -56,7 +56,6 @@ def interpret():
 
     interpreter = Interpreter(path_to_binary_file, left_boundary, right_boundary)
 
-
     try:
         interpreter.interpret()
     except ValueError as e:
@@ -72,3 +71,6 @@ if __name__ == '__main__':
             assemble()
         case 'interpret':
             interpret()
+        case wrong:
+            print('Для запуска скрипта необходимо ввести assemble или interpret с соответствующими аргументами')
+            exit(1)
