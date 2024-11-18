@@ -1,0 +1,14 @@
+<Result>
+    <register type="accumulator">-21</register>
+    <register type="memory" address="0">-2</register>
+    <register type="memory" address="1">-4</register>
+    <register type="memory" address="2">-6</register>
+    <register type="memory" address="3">-10</register>
+    <register type="memory" address="4">-16</register>
+    <register type="memory" address="5">-21</register>
+    <register type="memory" address="6">0</register>
+    <register type="memory" address="7">0</register>
+    <register type="memory" address="8">0</register>
+    <register type="memory" address="9">0</register>
+    <register type="memory" address="10">0</register>
+</Result>
